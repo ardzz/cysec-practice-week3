@@ -1,6 +1,14 @@
 version: '3.3'
 
 services:
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my_db_root_password
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
   # CVE-2017-5487
   CVE-2017-5487.local:
     depends_on:
@@ -49,9 +57,3 @@ services:
     image: flightkick/ezxss:latest
     ports:
       - "9094:80"
-
-  db:
-    build: ./mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: my_db_root_password
