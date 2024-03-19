@@ -1,0 +1,3 @@
+CREATE DATABASE wordpress1;
+CREATE DATABASE wordpress2;
+CREATE DATABASE wordpress3;

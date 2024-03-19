@@ -1,0 +1,57 @@
+version: '3.3'
+
+services:
+  # CVE-2017-5487
+  CVE-2017-5487.local:
+    depends_on:
+      - db
+    image: wordpress:4.6.1-php7.0-apache
+    ports:
+      - "9090:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: my_db_root_password
+      WORDPRESS_DB_NAME: wordpress1
+
+  # CVE-2021-21311
+  CVE-2021-21311.local:
+    image: adminer:4.7.8
+    ports:
+      - "9091:8080"
+
+  # CVE-2021-24917
+  CVE-2021-24917.local:
+    image: wordpress:4.6.1-php7.0-apache
+    ports:
+      - "9092:80"
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: root
+      WORDPRESS_DB_PASSWORD: my_db_root_password
+      WORDPRESS_DB_NAME: wordpress2
+
+  # CVE-2021-24891
+  CVE-2021-24891.local:
+      image: wordpress:4.6.1-php7.0-apache
+      ports:
+        - "9093:80"
+      restart: always
+      environment:
+        WORDPRESS_DB_HOST: db:3306
+        WORDPRESS_DB_USER: root
+        WORDPRESS_DB_PASSWORD: my_db_root_password
+        WORDPRESS_DB_NAME: wordpress3
+
+  ezxss:
+    image: flightkick/ezxss:latest
+    ports:
+      - "9094:80"
+
+  db:
+    build: ./mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: my_db_root_password
